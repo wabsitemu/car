@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merbabu Rent Car – Salatiga | Rental Mobil Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #F0D060;
+    --gold-dark: #A88A20;
+    --black: #0A0A0A;
+    --dark: #111827;
+    --dark2: #1C2535;
+    --dark3: #243044;
+    --white: #FFFFFF;
+    --off-white: #F8F5EE;
+    --gray: #9CA3AF;
+    --gray-light: #E5E7EB;
+    --text-muted: #6B7280;
+    --wa: #25D366;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+  h1,h2,h3,h4 { font-family: 'Cormorant Garamond', serif; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+    padding: 0.8rem 2rem;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.6rem;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    object-fit: cover; border: 2px solid var(--gold);
+  }
+  .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; }
+  .nav-logo-text span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--gray); text-decoration: none;
+    font-size: 0.9rem; font-weight: 500; letter-spacing: 0.03em;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--black);
+    padding: 0.6rem 1.5rem; border-radius: 50px;
+    text-decoration: none; font-weight: 600; font-size: 0.85rem;
+    transition: all 0.3s; white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--white); display: block; transition: all 0.3s; }
+
+  #hero {
+    min-height: 100vh;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0A0A0A 0%, #111827 50%, #0A0A0A 100%);
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 60% 50%, rgba(212,175,55,0.08) 0%, transparent 70%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image:
+      linear-gradient(var(--gold) 1px, transparent 1px),
+      linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove { from { transform: translateY(0); } to { transform: translateY(60px); } }
+  .hero-orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+  .hero-orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
+    right: -100px; top: -100px;
+  }
+  .hero-orb-2 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%);
+    left: 10%; bottom: 10%;
+    animation-delay: -4s;
+  }
+  @keyframes orbFloat {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(20px, -20px) scale(1.05); }
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1200px; margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: center;
+  }
+  .hero-badges {
+    display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+  .badge {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3);
+    padding: 0.35rem 0.9rem; border-radius: 50px;
+    font-size: 0.8rem; color: var(--gold); font-weight: 500;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    font-weight: 700; line-height: 1.1;
+    margin-bottom: 1.5rem;
+    opacity: 0; transform: translateY(25px);
+    animation: fadeUp 0.7s ease forwards 0.4s;
+  }
+  .hero-title .line2 { color: var(--gold); display: block; font-style: italic; }
+  .hero-title .line3 { display: block; font-size: 0.7em; font-weight: 400; color: var(--gray); margin-top: 0.3rem; font-family: 'DM Sans', sans-serif; letter-spacing: 0.05em; }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--gray); line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0; transform: translateY(25px);
+    animation: fadeUp 0.7s ease forwards 0.6s;
+    max-width: 480px;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards 0.8s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--black); padding: 0.9rem 2rem;
+    border-radius: 50px; font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+    transition: all 0.3s; border: none; cursor: pointer;
+    box-shadow: 0 4px 24px rgba(212,175,55,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(212,175,55,0.5); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.9rem 2rem; border-radius: 50px;
+    font-weight: 500; font-size: 0.95rem;
+    text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+    transition: all 0.3s; cursor: pointer;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem;
+    opacity: 0; animation: fadeUp 0.6s ease forwards 1s;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 700; color: var(--gold); line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--gray); margin-top: 0.2rem; }
+  .hero-visual {
+    position: relative;
+    opacity: 0; transform: translateX(30px);
+    animation: fadeLeft 0.8s ease forwards 0.5s;
+  }
+  .hero-car-img {
+    width: 100%; border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.1);
+    position: relative; z-index: 2; overflow: hidden;
+  }
+  .hero-car-img img {
+    width: 100%; height: 320px; object-fit: cover;
+    border-radius: 20px; display: block;
+    transition: transform 0.6s ease;
+  }
+  .hero-car-img:hover img { transform: scale(1.04); }
+  .hero-car-overlay {
+    position: absolute; inset: 0; border-radius: 20px;
+    background: linear-gradient(135deg, transparent 50%, rgba(212,175,55,0.05) 100%);
+    pointer-events: none;
+  }
+  .hero-float-card {
+    position: absolute; bottom: -20px; left: -20px; z-index: 3;
+    background: rgba(17,24,39,0.9); backdrop-filter: blur(10px);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 16px; padding: 1rem 1.3rem;
+    min-width: 200px;
+    animation: cardFloat 4s ease-in-out infinite;
+  }
+  @keyframes cardFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .float-card-title { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.5rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  .float-card-stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; }
+  .float-card-sub { font-size: 0.8rem; color: var(--white); margin-top: 0.3rem; }
+  .hero-float-card2 {
+    position: absolute; top: -15px; right: -15px; z-index: 3;
+    background: var(--gold); border-radius: 12px; padding: 0.8rem 1rem;
+    animation: cardFloat 4s ease-in-out infinite 2s;
+  }
+  .float2-num { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: var(--black); line-height: 1; }
+  .float2-text { font-size: 0.75rem; color: rgba(0,0,0,0.7); font-weight: 600; }
+
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeLeft { to { opacity: 1; transform: translateX(0); } }
+
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    color: var(--gold); font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-eyebrow::before, .section-eyebrow::after {
+    content: ''; display: block; width: 20px; height: 1px; background: var(--gold);
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+    margin-bottom: 1rem; line-height: 1.15;
+  }
+  .section-subtitle { color: var(--gray); font-size: 1.05rem; line-height: 1.7; max-width: 560px; }
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  #why { background: var(--dark); }
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 3.5rem; }
+  .why-card {
+    background: var(--dark2); border: 1px solid rgba(212,175,55,0.1);
+    border-radius: 20px; padding: 2rem;
+    transition: all 0.4s ease; cursor: default; position: relative; overflow: hidden;
+  }
+  .why-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(212,175,55,0.05) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .why-card:hover { transform: translateY(-6px); border-color: rgba(212,175,55,0.35); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+  .why-card:hover::before { opacity: 1; }
+  .why-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.3rem;
+    transition: all 0.3s;
+  }
+  .why-card:hover .why-icon { background: rgba(212,175,55,0.2); transform: scale(1.05); }
+  .why-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .why-desc { color: var(--gray); font-size: 0.9rem; line-height: 1.6; }
+
+  #fleet { background: var(--black); }
+  .fleet-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem; }
+  .fleet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+  .car-card {
+    background: var(--dark); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; overflow: hidden;
+    transition: all 0.4s ease;
+  }
+  .car-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.4); border-color: rgba(212,175,55,0.3); }
+  .car-img {
+    height: 220px; overflow: hidden; position: relative;
+    background: var(--dark2);
+  }
+  .car-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .car-card:hover .car-img img { transform: scale(1.05); }
+  .car-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--gold); color: var(--black);
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+    padding: 0.3rem 0.7rem; border-radius: 50px; text-transform: uppercase;
+    z-index: 2;
+  }
+  .car-info { padding: 1.5rem; }
+  .car-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .car-capacity { color: var(--gray); font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem; }
+  .car-price-row { display: flex; align-items: baseline; gap: 0.4rem; margin: 1rem 0; }
+  .car-price-from { font-size: 0.8rem; color: var(--gray); }
+  .car-price { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 700; color: var(--gold); }
+  .car-price-per { font-size: 0.8rem; color: var(--gray); }
+  .car-features { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .car-feat {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    padding: 0.25rem 0.6rem; border-radius: 50px; font-size: 0.75rem; color: var(--gray);
+  }
+  .car-book-btn {
+    width: 100%; padding: 0.8rem;
+    background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3);
+    color: var(--gold); font-weight: 600; font-size: 0.9rem;
+    border-radius: 12px; cursor: pointer; transition: all 0.3s;
+    text-decoration: none; display: block; text-align: center;
+  }
+  .car-book-btn:hover { background: var(--gold); color: var(--black); }
+
+  #services { background: var(--dark); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 3rem; }
+  .svc-card {
+    background: var(--dark2); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px; padding: 1.5rem;
+    transition: all 0.3s ease; text-align: center;
+  }
+  .svc-card:hover { border-color: rgba(212,175,55,0.3); background: var(--dark3); transform: translateY(-4px); }
+  .svc-icon { font-size: 1.8rem; margin-bottom: 0.7rem; }
+  .svc-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.3rem; }
+  .svc-desc { font-size: 0.8rem; color: var(--gray); }
+
+  #testimonials { background: var(--black); overflow: hidden; }
+  .testi-track-wrap { overflow: hidden; margin: 3rem -2rem 0; }
+  .testi-track {
+    display: flex; gap: 1.5rem;
+    animation: scrollLeft 30s linear infinite;
+    width: max-content;
+  }
+  .testi-track:hover { animation-play-state: paused; }
+  @keyframes scrollLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .testi-card {
+    background: var(--dark); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; padding: 1.8rem;
+    min-width: 320px; max-width: 320px;
+    transition: border-color 0.3s;
+  }
+  .testi-card:hover { border-color: rgba(212,175,55,0.3); }
+  .testi-stars { color: var(--gold); font-size: 1rem; letter-spacing: 3px; margin-bottom: 1rem; }
+  .testi-text { font-size: 0.95rem; line-height: 1.7; color: var(--gray); font-style: italic; margin-bottom: 1.2rem; }
+  .testi-name { font-weight: 600; font-size: 0.9rem; }
+  .testi-date { font-size: 0.8rem; color: var(--text-muted); }
+  .testi-badge { display: inline-flex; align-items: center; gap: 0.3rem; background: rgba(37,211,102,0.1); color: #4ade80; font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 50px; border: 1px solid rgba(37,211,102,0.2); margin-bottom: 1rem; letter-spacing: 0.05em; }
+
+  #area { background: var(--dark); }
+  .area-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .area-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+  .area-list li {
+    display: flex; align-items: center; gap: 0.7rem;
+    background: var(--dark2); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; padding: 0.9rem 1.2rem; font-size: 0.95rem;
+    transition: all 0.3s;
+  }
+  .area-list li:hover { border-color: rgba(212,175,55,0.3); color: var(--gold); }
+  .area-list li .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .area-map {
+    background: var(--dark2); border: 1px solid rgba(212,175,55,0.15);
+    border-radius: 24px; height: 360px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .map-pin-container { position: relative; }
+  .map-pin { font-size: 3rem; animation: pinBounce 2s ease-in-out infinite; }
+  @keyframes pinBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .map-rings { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .map-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(212,175,55,0.3);
+    transform: translate(-50%, -50%);
+    animation: ringExpand 3s ease-out infinite;
+  }
+  .map-ring:nth-child(1) { width: 80px; height: 80px; animation-delay: 0s; }
+  .map-ring:nth-child(2) { width: 140px; height: 140px; animation-delay: 1s; }
+  .map-ring:nth-child(3) { width: 200px; height: 200px; animation-delay: 2s; }
+  @keyframes ringExpand { 0% { opacity: 0.6; } 100% { opacity: 0; transform: translate(-50%,-50%) scale(1.2); } }
+  .map-label {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+    border: 1px solid rgba(212,175,55,0.3); border-radius: 12px;
+    padding: 0.7rem 1.2rem; font-size: 0.85rem; font-weight: 600;
+    color: var(--gold); white-space: nowrap;
+  }
+  .map-dots { position: absolute; inset: 0; }
+  .map-dot {
+    position: absolute; width: 4px; height: 4px;
+    background: rgba(212,175,55,0.3); border-radius: 50%;
+  }
+
+  #contact { background: var(--black); }
+  .cta-box {
+    background: linear-gradient(135deg, var(--dark2) 0%, #1a2234 100%);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 28px; padding: 4rem;
+    position: relative; overflow: hidden;
+    text-align: center;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute; top: -50%; left: -50%; right: -50%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(212,175,55,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cta-title { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; }
+  .cta-sub { color: var(--gray); font-size: 1.05rem; margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .contact-details {
+    display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 3rem;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 0.7rem;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 50px; padding: 0.7rem 1.3rem;
+    font-size: 0.9rem;
+  }
+  .contact-icon { font-size: 1.1rem; }
+  .btn-wa {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--wa); color: var(--white);
+    padding: 1rem 2.5rem; border-radius: 50px;
+    font-weight: 700; font-size: 1.05rem; text-decoration: none;
+    transition: all 0.3s; box-shadow: 0 4px 24px rgba(37,211,102,0.3);
+  }
+  .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(37,211,102,0.5); }
+  .wa-pulse {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  footer {
+    background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 3rem 2rem 2rem; text-align: center;
+  }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline { color: var(--gray); font-size: 0.85rem; margin-bottom: 2rem; }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; list-style: none; flex-wrap: wrap; margin-bottom: 2rem; }
+  .footer-links a { color: var(--gray); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { color: var(--text-muted); font-size: 0.8rem; }
+  .footer-copy span { color: var(--gold); }
+  .gold-line { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 1.5rem auto; max-width: 200px; }
+
+  .wa-float {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .wa-float-btn {
+    width: 58px; height: 58px; border-radius: 50%;
+    background: var(--wa); display: flex; align-items: center; justify-content: center;
+    text-decoration: none; font-size: 1.6rem;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    transition: all 0.3s; position: relative;
+  }
+  .wa-float-btn:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.6); }
+  .wa-float-btn::before {
+    content: ''; position: absolute; inset: -4px; border-radius: 50%;
+    border: 2px solid rgba(37,211,102,0.4);
+    animation: waRing 2s ease-out infinite;
+  }
+  @keyframes waRing { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.5); opacity: 0; } }
+  .wa-float-label {
+    background: var(--dark); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 0.6rem 1rem;
+    font-size: 0.8rem; font-weight: 600; white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    opacity: 0; transform: translateX(10px);
+    pointer-events: none; transition: all 0.3s;
+  }
+  .wa-float:hover .wa-float-label { opacity: 1; transform: translateX(0); }
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.4) 30%, rgba(212,175,55,0.8) 50%, rgba(212,175,55,0.4) 70%, transparent 100%);
+    margin: 0;
+  }
+
+  /* ===== CAR IMAGE GRADIENT OVERLAY ===== */
+  .car-img::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+    background: linear-gradient(transparent, var(--dark));
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .hero-content { grid-template-columns: 1fr; padding-top: 6rem; }
+    .hero-visual { display: none; }
+    .hero-stats { gap: 1.5rem; }
+    .area-content { grid-template-columns: 1fr; }
+    .area-map { height: 240px; }
+    .cta-box { padding: 2.5rem 1.5rem; }
+    .contact-details { flex-direction: column; align-items: center; }
+    section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PETUNJUK PENGGANTIAN FOTO:
+     
+     Ganti semua path placeholder di bawah ini dengan URL/path foto asli Anda:
+     
+     🔸 LOGO  →  "Screenshot 2026-05-31 122948.png" (logo Merbabu RENTCAR)
+     🔸 HERO  →  "Screenshot 2026-05-31 122853.png" (MPV hitam)
+     🔸 ALPHARD → "Screenshot 2026-05-31 123001.png" (MPV putih lampu nyala)
+     🔸 VELLFIRE → "Screenshot 2026-05-31 122853.png" (MPV hitam)
+     🔸 HIACE  → "Screenshot 2026-05-31 122908.png" (van putih H 1201 CX)
+     🔸 AVANZA → "Screenshot 2026-05-31 122935.png" (MPV putih di jalan berpohon)
+     
+     Contoh: ganti  src="images/Screenshot-2026-05-31-122948.png"
+     dengan URL sebenarnya seperti: src="https://yourhost.com/Screenshot-2026-05-31-122948.png"
+     ============================================================ -->
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <!-- FOTO: Logo Merbabu RENTCAR -->
+    <img src="(5).png" alt="Merbabu Rent Car Logo" class="nav-logo-icon">
+    <div class="nav-logo-text">Merbabu <span>Rent Car</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#why">Keunggulan</a></li>
+    <li><a href="#fleet">Armada</a></li>
+    <li><a href="#services">Layanan</a></li>
+    <li><a href="#testimonials">Testimoni</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+  <a href="https://wa.me/6281229028939?text=Halo,%20saya%20ingin%20booking%20rental%20mobil" class="nav-cta" target="_blank">📱 Booking</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-content container">
+    <div class="hero-left">
+      <div class="hero-badges">
+        <div class="badge"><div class="badge-dot"></div>Buka 24 Jam</div>
+        <div class="badge">⭐ Rating 5.0</div>
+        <div class="badge">📍 Salatiga</div>
+      </div>
+       
+      <h1 class="hero-title">
+        Rental Mobil
+        <span class="line2">Merbabu Salatiga</span>
+        
+        <span class="line3">Bersih · Nyaman · Terpercaya</span>
+      </h1>
+
+      <p class="hero-sub">
+        
+        Armada terbaru dengan driver berpengalaman. Melayani wisata, bisnis, keluarga, hingga antar kota. Respon cepat via WhatsApp.
+      </p>
+
+      <div class="hero-btns">
+        
+        <a href="https://wa.me/6281229028939?text=Halo,%20saya%20ingin%20booking%20rental%20mobil%20Merbabu" class="btn-primary" target="_blank">
+          💬 Booking via WhatsApp
+        </a>
+        <a href="#fleet" class="btn-outline">
+          🚗 Lihat Armada
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">5.0</div>
+          <div class="stat-label">Rating Google</div>
+        </div>
+        <div>
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Siap Layani</div>
+        </div>
+        <div>
+          <div class="stat-num">100+</div>
+          <div class="stat-label">Pelanggan Puas</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-car-img">
+        <!-- FOTO: MPV Hitam (Alphard/Vellfire) -->
+        <img src="(1).png" alt="Armada Merbabu Rent Car - MPV Premium Hitam">
+        <div class="hero-car-overlay"></div>
+      </div>
+
+      <div class="hero-float-card">
+        <div class="float-card-title">Google Review</div>
+        <div class="float-card-stars">★★★★★</div>
+        <div class="float-card-sub">Mobil bersih & driver ramah</div>
+      </div>
+
+      <div class="hero-float-card2">
+        <div class="float2-num">New</div>
+        <div class="float2-text">Model Terbaru</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="section-eyebrow">Keunggulan Kami</div>
+      <h2 class="section-title">Kenapa Pilih <span style="color:var(--gold)">Merbabu?</span></h2>
+      <p class="section-subtitle" style="margin:0 auto">Kami mengutamakan kenyamanan dan kepercayaan Anda dalam setiap perjalanan</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon">🚗</div>
+        <div class="why-title">Mobil Model Terbaru</div>
+        <div class="why-desc">Armada selalu diperbarui dengan unit terbaru. Toyota Alphard, Vellfire, HiAce, dan Avanza dalam kondisi prima.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon">🧼</div>
+        <div class="why-title">Bersih & Wangi</div>
+        <div class="why-desc">Kebersihan kendaraan adalah prioritas kami. Setiap unit dibersihkan menyeluruh sebelum penjemputan.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-icon">👨‍✈️</div>
+        <div class="why-title">Driver Berpengalaman</div>
+        <div class="why-desc">Driver ramah, profesional, memahami medan dan rute wisata Jawa Tengah dengan baik.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-4">
+        <div class="why-icon">💰</div>
+        <div class="why-title">Harga Kompetitif</div>
+        <div class="why-desc">Kualitas premium dengan harga yang bersahabat. Transparan tanpa biaya tersembunyi.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- FLEET -->
+<section id="fleet">
+  <div class="container">
+    <div class="fleet-header">
+      <div class="reveal">
+        <div class="section-eyebrow">Armada Kami</div>
+        <h2 class="section-title">Pilihan <span style="color:var(--gold)">Kendaraan</span></h2>
+        <p class="section-subtitle">Semua unit baru, terawat, dan siap antar kemana saja</p>
+      </div>
+    </div>
+    <div class="fleet-grid">
+
+      <!-- Alphard -->
+      <div class="car-card reveal reveal-delay-1">
+        <div class="car-img">
+          <!-- FOTO: MPV Putih lampu nyala -->
+          <img src="(2).png" alt="Toyota Alphard - Merbabu Rent Car">
+          <div class="car-badge">⭐ Premium</div>
+        </div>
+        <div class="car-info">
+          <div class="car-name">Toyota Alphard</div>
+          <div class="car-capacity">👥 7 Penumpang · Tahun 2024</div>
+          <div class="car-price-row">
+            <span style="color:var(--gold);font-weight:600;">
+               Hubungi untuk Harga Terbaik
+          </div>
+          <div class="car-features">
+            <span class="car-feat">AC Double</span>
+            <span class="car-feat">Kursi VIP</span>
+            <span class="car-feat">Entertainment</span>
+          </div>
+          <a href="https://wa.me/6281229028939?text=Halo,%20saya%20ingin%20booking%20Toyota%20Alphard" class="car-book-btn" target="_blank">Booking Sekarang →</a>
+        </div>
+      </div>
+
+      <!-- Vellfire -->
+      <div class="car-card reveal reveal-delay-2">
+        <div class="car-img">
+          <!-- FOTO: MPV Hitam (sama dengan hero) -->
+          <img src="(1).png" alt="Toyota Vellfire - Merbabu Rent Car">
+          <div class="car-badge">⭐ Premium</div>
+        </div>
+        <div class="car-info">
+          <div class="car-name">Toyota Vellfire</div>
+          <div class="car-capacity">👥 7 Penumpang · Tahun 2023</div>
+          <div class="car-price-row">
+            <span style="color:var(--gold);font-weight:600;">
+    Hubungi untuk Harga Terbaik
+          </div>
+          <div class="car-features">
+            <span class="car-feat">AC Double</span>
+            <span class="car-feat">Mewah</span>
+            <span class="car-feat">Nyaman</span>
+          </div>
+          <a href="https://wa.me/6281229028939?text=Halo,%20saya%20ingin%20booking%20Toyota%20Vellfire" class="car-book-btn" target="_blank">Booking Sekarang →</a>
+        </div>
+      </div>
+
+      <!-- HiAce -->
+      <div class="car-card reveal reveal-delay-3">
+        <div class="car-img">
+          <!-- FOTO: Van Putih (H 1201 CX) -->
+          <img src="(3).png" alt="Toyota HiAce - Merbabu Rent Car">
+          <div class="car-badge">🚌 Minibus</div>
+        </div>
+        <div class="car-info">
+          <div class="car-name">Toyota HiAce</div>
+          <div class="car-capacity">👥 14 Penumpang · Tahun 2024</div>
+          <div class="car-price-row">
+            <span style="color:var(--gold);font-weight:600;">
+    Hubungi untuk Harga Terbaik
+          </div>
+          <div class="car-features">
+            <span class="car-feat">Kapasitas Besar</span>
+            <span class="car-feat">Rombongan</span>
+            <span class="car-feat">AC Dingin</span>
+          </div>
+          <a href="https://wa.me/6281229028939?text=Halo,%20saya%20ingin%20booking%20Toyota%20HiAce" class="car-book-btn" target="_blank">Booking Sekarang →</a>
+        </div>
+      </div>
+
+      <!-- Avanza -->
+      <div class="car-card reveal reveal-delay-1">
+        <div class="car-img">
+          <!-- FOTO: MPV Putih di jalan berpohon -->
+          <img src="(4).png" alt="Toyota Avanza - Merbabu Rent Car">
+          <div class="car-badge">💼 Ekonomis</div>
+        </div>
+        <div class="car-info">
+          <div class="car-name">Toyota Avanza</div>
+          <div class="car-capacity">👥 7 Penumpang · Tahun 2023</div>
+          <div class="car-price-row">
+            <span style="color:var(--gold);font-weight:600;">
+    Hubungi untuk Harga Terbaik
+          </div>
+          <div class="car-features">
+            <span class="car-feat">Irit BBM</span>
+            <span class="car-feat">Nyaman</span>
+            <span class="car-feat">Keluarga</span>
+          </div>
+          <a href="https://wa.me/6281229028939?text=Halo,%20saya%20ingin%20booking%20Toyota%20Avanza" class="car-book-btn" target="_blank">Booking Sekarang →</a>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <p style="color:var(--gray);font-size:0.9rem;margin-bottom:1rem">Harga belum termasuk bensin & tol. Hubungi kami untuk harga terbaik.</p>
+      <a href="https://wa.me/6281229028939?text=Halo,%20tolong%20info%20harga%20lengkap%20armada%20Merbabu" class="btn-primary" style="display:inline-flex" target="_blank">
+        💬 Tanya Harga Lengkap
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="section-eyebrow">Layanan</div>
+      <h2 class="section-title">Apa yang Kami <span style="color:var(--gold)">Tawarkan</span></h2>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal reveal-delay-1">
+        <div class="svc-icon">📅</div>
+        <div class="svc-title">Rental Harian</div>
+        <div class="svc-desc">Sewa per hari sesuai kebutuhan</div>
+      </div>
+      <div class="svc-card reveal reveal-delay-1">
+        <div class="svc-icon">📆</div>
+        <div class="svc-title">Rental Mingguan</div>
+        <div class="svc-desc">Hemat lebih banyak per minggu</div>
+      </div>
+      <div class="svc-card reveal reveal-delay-2">
+        <div class="svc-icon">🗓️</div>
+        <div class="svc-title">Rental Bulanan</div>
+        <div class="svc-desc">Solusi ideal untuk kebutuhan rutin</div>
+      </div>
+      <div class="svc-card reveal reveal-delay-2">
+        <div class="svc-icon">✈️</div>
+        <div class="svc-title">Antar Jemput Bandara</div>
+        <div class="svc-desc">Ahmad Yani, Adi Sucipto & lainnya</div>
+      </div>
+      <div class="svc-card reveal reveal-delay-3">
+        <div class="svc-icon">🏯</div>
+        <div class="svc-title">Wisata Jogja</div>
+        <div class="svc-desc">Malioboro, Prambanan, Merapi & lebih</div>
+      </div>
+      <div class="svc-card reveal reveal-delay-3">
+        <div class="svc-icon">🌃</div>
+        <div class="svc-title">Wisata Semarang</div>
+        <div class="svc-desc">Lawang Sewu, Kota Lama & lainnya</div>
+      </div>
+      <div class="svc-card reveal reveal-delay-4">
+        <div class="svc-icon">💼</div>
+        <div class="svc-title">Perjalanan Dinas</div>
+        <div class="svc-desc">Profesional & tepat waktu</div>
+      </div>
+      <div class="svc-card reveal reveal-delay-4">
+        <div class="svc-icon">🚗</div>
+        <div class="svc-title">Antar Kota</div>
+        <div class="svc-desc">Seluruh Jawa Tengah & sekitarnya</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="section-eyebrow">Testimoni</div>
+      <h2 class="section-title">Kata <span style="color:var(--gold)">Pelanggan Kami</span></h2>
+      <p class="section-subtitle" style="margin:0 auto">Kepuatan Anda adalah kebanggaan kami</p>
+    </div>
+  </div>
+  <div class="testi-track-wrap">
+    <div class="testi-track" id="testiTrack">
+      <div class="testi-card">
+        <div class="testi-badge">✅ Google Review</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Mobil bersih dan wangi, harga juga kompetitif. Sangat recommended untuk wisata keluarga!"</div>
+        <div class="testi-name">Cah Bagus</div>
+        <div class="testi-date">Mei 2025 · Google Maps</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-badge">✅ Google Review</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Mobilnya new model semua! Perjalanan ke Jogja jadi sangat nyaman. Driver ramah dan tahu jalan."</div>
+        <div class="testi-name">Raka Devri</div>
+        <div class="testi-date">April 2025 · Google Maps</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-badge">✅ Google Review</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Recommended banget! Respon WhatsApp cepat, armada terawat, driver on time. Pasti balik lagi."</div>
+        <div class="testi-name">Ardyan Wibi Satrio</div>
+        <div class="testi-date">Maret 2025 · Google Maps</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-badge">✅ Google Review</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Sudah 3x pakai Merbabu Rent Car. Selalu puas! Mobil nyaman, AC dingin, dan harga tidak menguras kantong."</div>
+        <div class="testi-name">Dewi Hartati</div>
+        <div class="testi-date">Februari 2025 · Google Maps</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-badge">✅ Google Review</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Pesan HiAce untuk rombongan kantor ke Semarang. Tepat waktu, profesional, dan harga bersahabat."</div>
+        <div class="testi-name">Budi Santoso</div>
+        <div class="testi-date">Januari 2025 · Google Maps</div>
+      </div>
+      <!-- Duplicate for infinite scroll -->
+      <div class="testi-card">
+        <div class="testi-badge">✅ Google Review</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Mobil bersih dan wangi, harga juga kompetitif. Sangat recommended untuk wisata keluarga!"</div>
+        <div class="testi-name">Cah Bagus</div>
+        <div class="testi-date">Mei 2025 · Google Maps</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-badge">✅ Google Review</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Mobilnya new model semua! Perjalanan ke Jogja jadi sangat nyaman. Driver ramah dan tahu jalan."</div>
+        <div class="testi-name">Raka Devri</div>
+        <div class="testi-date">April 2025 · Google Maps</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-badge">✅ Google Review</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Recommended banget! Respon WhatsApp cepat, armada terawat, driver on time. Pasti balik lagi."</div>
+        <div class="testi-name">Ardyan Wibi Satrio</div>
+        <div class="testi-date">Maret 2025 · Google Maps</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-badge">✅ Google Review</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Sudah 3x pakai Merbabu Rent Car. Selalu puas! Mobil nyaman, AC dingin, dan harga tidak menguras kantong."</div>
+        <div class="testi-name">Dewi Hartati</div>
+        <div class="testi-date">Februari 2025 · Google Maps</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-badge">✅ Google Review</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Pesan HiAce untuk rombongan kantor ke Semarang. Tepat waktu, profesional, dan harga bersahabat."</div>
+        <div class="testi-name">Budi Santoso</div>
+        <div class="testi-date">Januari 2025 · Google Maps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- AREA -->
+<section id="area">
+  <div class="container">
+    <div class="area-content">
+      <div class="reveal">
+        <div class="section-eyebrow">Area Layanan</div>
+        <h2 class="section-title">Kami Melayani <span style="color:var(--gold)">Seluruh Jawa</span></h2>
+        <p class="section-subtitle">Dari Salatiga hingga kota-kota besar di Jawa Tengah dan sekitarnya</p>
+        <ul class="area-list">
+          <li><span class="dot"></span>Salatiga</li>
+          <li><span class="dot"></span>Semarang</li>
+          <li><span class="dot"></span>Yogyakarta</li>
+          <li><span class="dot"></span>Solo</li>
+          <li><span class="dot"></span>Magelang</li>
+          <li><span class="dot"></span>Klaten</li>
+          <li><span class="dot"></span>Boyolali</li>
+          <li><span class="dot"></span>Jawa Tengah</li>
+        </ul>
+      </div>
+      <div class="area-map reveal reveal-delay-2">
+        <div class="map-dots" id="mapDots"></div>
+        <div class="map-rings">
+          <div class="map-ring"></div>
+          <div class="map-ring"></div>
+          <div class="map-ring"></div>
+        </div>
+        <div class="map-pin-container">
+          <div class="map-pin">📍</div>
+        </div>
+        <div class="map-label">📍 Salatiga, Jawa Tengah</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- CONTACT / CTA -->
+<section id="contact">
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="section-eyebrow" style="justify-content:center">Booking Sekarang</div>
+      <h2 class="cta-title">Siap Melayani <span style="color:var(--gold)">Perjalanan Anda</span></h2>
+      <p class="cta-sub">Respon cepat via WhatsApp. Booking mudah, tanpa ribet. Tersedia 24 jam sehari, 7 hari seminggu.</p>
+
+      <a href="https://wa.me/6281229028939?text=Halo%20Merbabu%20Rent%20Car,%20saya%20ingin%20informasi%20dan%20booking%20rental%20mobil" class="btn-wa" target="_blank">
+        <span>💬</span>
+        Chat WhatsApp Sekarang
+        <span class="wa-pulse"></span>
+      </a>
+
+      <div class="contact-details">
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <span>Tluko RT.16/09, Butuh, Tengaran</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📞</span>
+          <span>0812-2902-8939</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">⏰</span>
+          <span>Buka 24 Jam</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Merbabu <span>Rent Car</span></div>
+  <div class="footer-tagline">Rental Mobil Terpercaya di Salatiga & Sekitarnya</div>
+  <div class="gold-line"></div>
+  <ul class="footer-links">
+    <li><a href="#why">Keunggulan</a></li>
+    <li><a href="#fleet">Armada</a></li>
+    <li><a href="#services">Layanan</a></li>
+    <li><a href="#area">Area</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 <span>Merbabu Rent Car</span> · Salatiga, Jawa Tengah · Semua Hak Dilindungi</p>
+</footer>
+
+<!-- WA FLOAT -->
+<div class="wa-float">
+  <div class="wa-float-label">Booking via WhatsApp</div>
+  <a href="https://wa.me/6281229028939?text=Halo,%20saya%20ingin%20booking%20rental%20mobil%20Merbabu" class="wa-float-btn" target="_blank">
+    💬
+  </a>
+</div>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (window.scrollY > 50) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+// Hamburger
+function toggleMenu() {
+  const links = document.querySelector('.nav-links');
+  const cta = document.querySelector('.nav-cta');
+  if (links) {
+    const vis = links.style.display === 'flex';
+    links.style.cssText = vis ? '' : 'display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:rgba(10,10,10,0.97);padding:1.5rem;gap:1.5rem;border-bottom:1px solid rgba(212,175,55,0.2);z-index:99;';
+    if (cta) cta.style.display = vis ? '' : 'block';
+  }
+}
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => revealObs.observe(el));
+
+// Map dots
+const mapDots = document.getElementById('mapDots');
+if (mapDots) {
+  for (let i = 0; i < 30; i++) {
+    const d = document.createElement('div');
+    d.className = 'map-dot';
+    d.style.cssText = `left:${Math.random()*95}%;top:${Math.random()*95}%;opacity:${0.2+Math.random()*0.4};`;
+    mapDots.appendChild(d);
+  }
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Counter animation
+function animateCounter(el, target, suffix='') {
+  let start = 0;
+  const duration = 1500;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const statNums = document.querySelectorAll('.stat-num');
+const statsObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const text = e.target.textContent;
+      if (text.includes('+')) animateCounter(e.target, parseInt(text), '+');
+      statsObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+statNums.forEach(el => statsObs.observe(el));
+</script>
+</body>
+</html>
